@@ -16,4 +16,3 @@ sum([&CAP5_R_C10])=[CAP5_R500_C10]msg(Suma Remunerarea muncii mii lei, nu este c
 
 
 
-
