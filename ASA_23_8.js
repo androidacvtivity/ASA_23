@@ -246,18 +246,46 @@ webform.validators.asa23 = function (v, allowOverpass) {
         caemNr3 = 0,
         caemNr2 = 0,
         thirdCol;
-    var caem6Nr4Arr = [3514, 3523, 3530],
-        caem6Nr3Arr = [451, 453, 454, 462, 463, 464, 465, 466, 467, 468, 469],
-        caem6Nr2Arr = [47, 56];
+    var caem6Nr4Arr = ['3514', '3523', '3530'],
+        caem6Nr3Arr = ['451', '453', '454', '462', '463', '464', '465', '466', '467', '468', '469'],
+        caem6Nr2Arr = ['47', '56'];
+     caem6Nr4Grupa = ['0000','0100','0110','0120','0140','0160','0200','0300','0310','0320','0500','0600','0700','0720','0800','0810','0890','0900','1000','1010','1030','1040',
+'1050','1060','1070','1080','1090','1100','1300','1390','1400','1410','1430','1500','1510','1600','1620','1700','1710','1720','1800','1810','1900','2000','2010','2040','2050',
+'2100','2200','2210','2220','2300','2310','2330','2340','2350','2360','2390','2400','2430','2440','2450','2500','2510','2520','2560','2570','2590','2600','2610','2650',
+'2700','2710','2730','2750','2800','2810','2820','2840','2890','2900','2930','3000','3010','3090','3100','3200','3210','3290','3300','3310','3500','3510','3520',
+'3800','3810','3820','3830','4100','4200','4210','4220','4290','4300','4310','4320','4330','4390','4500','4510','4530','4600','4610','4620','4630','4640','4650','4660',
+'4670','4700','4710','4720','4740','4750','4760','4770','4780','4790','4900','4930','4940','5000','5100','5120','5200','5220','5300','5500','5600','5620','5800','5810',
+'5820','5900','5910','6000','6100','6200','6300','6310','6390','6400','6410','6490','6500','6510','6600','6610','6620','6800','6830','6900','7000','7020','7100','7110',
+'7200','7210','7300','7310','7400','7700','7710','7720','7730','7800','7900','7910','8000','8100','8120','8200','8210','8290','8400','8410','8420','8500','8530','8540',
+'8550','8600','8620','8700','8800','8890','9000','9100','9300','9310','9320','9400','9410','9490','9500','9510','9520','9600','9800'];
+
 
     for (i = 0; i < values.CAP4_R_C31.length; i++) {
 
         var codeMatch = false;
+        var codeGroup = false;
+        //Cum in JS in Drupal sa  scriu in IF aceasta conditie  (daca este mai mare sau mai mic de 4 carectere )
         caem = values.CAP4_R_C31[i];
+        
+        if (caem.length !== 4 || !/^\d+$/.test(caem)) {
+            webform.errors.push({
+                'fieldName': 'CAP4_R_C31',
+                'index': i,
+                'msg': Drupal.t('Cod eroare: 4.070, In cap.4 in coloana B [CAEM rev.2] codul caem2 trebuie sa contina 4 caractere si contina doar cifre')
+            });
+        }
+
+        
+
         thirdCol = Number(values.CAP4_R_C5[i]);
-        caemNr4 = Number(caem.substring(0, 4));
-        caemNr3 = Number(caem.substring(0, 3));
-        caemNr2 = Number(caem.substring(0, 2));
+        secondCol = Number(values.CAP4_R_C4[i]);
+        firstCol = Number(values.CAP4_R_C3[i]);
+
+        //It is JS Drupal
+        //It must not be a number but text
+        caemNr4 = caem.substring(0, 4);
+        caemNr3 = caem.substring(0, 3);
+        caemNr2 = caem.substring(0, 2);
 
         if (caemNr4 === 0) {
             webform.errors.push({
@@ -267,11 +295,31 @@ webform.validators.asa23 = function (v, allowOverpass) {
             });
         }
 
+        for (j = 0; j < caem6Nr4Grupa.length; j++) {
+            if (caemNr4 === caem6Nr4Grupa[j]) {
+                codeGroup = true;
+            }
+        }
+
+
+        if (codeGroup ===  true) {
+            webform.errors.push({
+                'fieldName': 'CAP4_R_C31',
+                'index': i,
+                'msg': Drupal.t('Cod eroare: 4.008, In cap.4 in coloana B [CAEM rev.2]  este introdus grupa')
+            });
+        }
+
+
+
         for (j = 0; j < caem6Nr4Arr.length; j++) {
             if (caemNr4 === caem6Nr4Arr[j]) {
                 codeMatch = true;
             }
         }
+
+
+
 
         for (var k = 0; k < caem6Nr3Arr.length; k++) {
             if (caemNr3 === caem6Nr3Arr[k]) {
@@ -285,11 +333,19 @@ webform.validators.asa23 = function (v, allowOverpass) {
             }
         }
 
-        if (codeMatch === true && thirdCol == 0) {
-            webform.warnings.push({
-                'fieldName': 'CAP4_R_C3',
+        if (codeMatch === true && thirdCol === 0) {
+            webform.errors.push({
+                'fieldName': 'CAP4_R_C5',
                 'index': i,
-                'msg': Drupal.t('Cod eroare: 4.08, In cap.4 col.3 se completeaza pentru CAEM-2: 3514, 3523, 3530, 451, 453, 454, 462-469, 47, 56')
+                'msg': Drupal.t('Cod eroare: 64-107, CAP.4 Col.3 pentru CAEM-2: 3514, 3523,  451, 453, 454, 462-469, 47  se completeaza obligatoriu')
+            });
+        }
+
+        if (codeMatch === false && thirdCol > 0) {
+            webform.errors.push({
+                'fieldName': 'CAP4_R_C5',
+                'index': i,
+                'msg': Drupal.t('Cod eroare: 64-011, CAP.4 Col.3 se completeaza pentru CAEM-2: 3514, 3523, 3530, 451, 453, 454, 462-469, 47, 56')
             });
         }
     }

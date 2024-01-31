@@ -255,6 +255,8 @@ webform.validators.asa23 = function (v, allowOverpass) {
         var codeMatch = false;
         caem = values.CAP4_R_C31[i];
         thirdCol = Number(values.CAP4_R_C5[i]);
+        secondCol = Number(values.CAP4_R_C4[i]);
+        firstCol = Number(values.CAP4_R_C3[i]);
         caemNr4 = Number(caem.substring(0, 4));
         caemNr3 = Number(caem.substring(0, 3));
         caemNr2 = Number(caem.substring(0, 2));
@@ -285,11 +287,19 @@ webform.validators.asa23 = function (v, allowOverpass) {
             }
         }
 
-        if (codeMatch === true && thirdCol == 0) {
-            webform.warnings.push({
-                'fieldName': 'CAP4_R_C3',
+        if (codeMatch === true && thirdCol === 0) {
+            webform.errors.push({
+                'fieldName': 'CAP4_R_C5',
                 'index': i,
-                'msg': Drupal.t('Cod eroare: 4.08, In cap.4 col.3 se completeaza pentru CAEM-2: 3514, 3523, 3530, 451, 453, 454, 462-469, 47, 56')
+                'msg': Drupal.t('Cod eroare: 64-107, CAP.4 Col.3 pentru CAEM-2: 3514, 3523,  451, 453, 454, 462-469, 47  se completeaza obligatoriu')
+            });
+        }
+
+        if (codeMatch === false && thirdCol > 0) {
+            webform.errors.push({
+                'fieldName': 'CAP4_R_C5',
+                'index': i,
+                'msg': Drupal.t('Cod eroare: 64-107, CAP.4 Col.3 se completeaza pentru CAEM-2: 3514, 3523, 3530, 451, 453, 454, 462-469, 47, 56')
             });
         }
     }
