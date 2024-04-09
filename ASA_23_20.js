@@ -653,15 +653,18 @@ caem4_codul_r = [
             if (caem6 == caem8) {
                 matchFound = true;
             }
+
+
+
+            if (matchFound == false) {
+                webform.errors.push({
+                    'fieldName': 'CAP5_R_C37',
+                    'msg': Drupal.t('Cod eroare: 5.09, In cap.5 in coloana F [CAEM rev.2] trebuie sa se reflecte cel putin un cod de activitate reflectat in cap.4 coloana B [CAEM rev.2]')
+                });
+            }
         }
     }
 
-    if (matchFound == false) {
-        webform.errors.push({
-            'fieldName': 'CAP4_R_C31',
-            'msg': Drupal.t('Cod eroare: 5.09, In cap.5 in coloana F [CAEM rev.2] trebuie sa se reflecte cel putin un cod de activitate reflectat in cap.4 coloana B [CAEM rev.2]')
-        });
-    }
 
 
 
