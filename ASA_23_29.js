@@ -653,15 +653,19 @@ caem4_codul_r = [
             if (caem6 == caem8) {
                 matchFound = true;
             }
+
+
+
+            if (matchFound == false) {
+                webform.errors.push({
+                    'fieldName': 'CAP5_R_C37',
+                    'index': j,
+                    'msg': Drupal.t('Cod eroare: 5.09, In cap.5 in coloana F [CAEM rev.2] trebuie sa se reflecte cel putin un cod de activitate reflectat in cap.4 coloana B [CAEM rev.2]')
+                });
+            }
         }
     }
 
-    if (matchFound == false) {
-        webform.errors.push({
-            'fieldName': 'CAP4_R_C31',
-            'msg': Drupal.t('Cod eroare: 5.09, In cap.5 in coloana F [CAEM rev.2] trebuie sa se reflecte cel putin un cod de activitate reflectat in cap.4 coloana B [CAEM rev.2]')
-        });
-    }
 
 
 
@@ -862,13 +866,32 @@ caem4_codul_r = [
         }
     }
 
+
+    //This is code in JS for Drupal
     var countCap1SpecificRows = 0;
     var cap1SpecificFields = ['CAP1_R100_C1', 'CAP1_R110_C1', 'CAP1_R120_C1', 'CAP1_R130_C1', 'CAP1_R140_C1'];
     for (var fi = 0; fi < cap1SpecificFields.length; fi++) {
         if (values[cap1SpecificFields[fi]]) {
+           
             countCap1SpecificRows++;
         }
     }
+
+
+
+    // var countCap1SpecificRows = 0;
+    // var cap1SpecificFields = ['CAP1_R100_C1', 'CAP1_R110_C1', 'CAP1_R120_C1', 'CAP1_R130_C1', 'CAP1_R140_C1'];
+
+    // for (var fi = 0; fi < cap1SpecificFields.length; fi++) {
+    //     var fieldValue = values[cap1SpecificFields[fi]];
+
+    //     // Check if fieldValue is not "0.0" or ""
+    //     if (fieldValue !== "0.0" && fieldValue !== "") {
+    //         countCap1SpecificRows++;
+    //     }
+    // }
+
+
 
     for (var i = 0; i < values.CAP4_R_C31.length; i++) {
         if (countCap4Rows < countCap1SpecificRows) {
@@ -1167,7 +1190,8 @@ caem4_codul_r = [
 
 
     
-    if (values.CAP4_R400_C4 == "") {
+    if (values.CAP4_R400_C4 == ""
+        && (values.CHESTIONAR_RA_C2 != true && (values.CHESTIONAR_R1_C1 != true && values.CHESTIONAR_R2_C1 != true && values.CHESTIONAR_R3_C1 != true))) {
         webform.errors.push({
             'fieldName': 'CAP4_R400_C4',
             'msg': Drupal.t('Cod eroare: A.01, Cap.4 [r.400 c.2] >= 0')
