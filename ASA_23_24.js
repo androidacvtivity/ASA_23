@@ -256,7 +256,7 @@ webform.validators.asa23 = function (v, allowOverpass) {
         thirdCol;
     var caem6Nr4Arr = ['3514', '3523'],
         caem6Nr3Arr = ['451', '453', '454', '462', '463', '464', '465', '466', '467', '468', '469'],
-        caem6Nr2Arr = ['47', '56']];
+        caem6Nr2Arr = ['47', '56'];
      caem6Nr4Grupa = ['0000','0100','0110','0120','0140','0160','0200','0300','0310','0320','0500','0600','0700','0720','0800','0810','0890','0900','1000','1010','1030','1040',
 '1050','1060','1070','1080','1090','1100','1300','1390','1400','1410','1430','1500','1510','1600','1620','1700','1710','1720','1800','1810','1900','2000','2010','2040','2050',
 '2100','2200','2210','2220','2300','2310','2330','2340','2350','2360','2390','2400','2430','2440','2450','2500','2510','2520','2560','2570','2590','2600','2610','2650',
@@ -866,13 +866,32 @@ caem4_codul_r = [
         }
     }
 
+
+    //This is code in JS for Drupal
     var countCap1SpecificRows = 0;
     var cap1SpecificFields = ['CAP1_R100_C1', 'CAP1_R110_C1', 'CAP1_R120_C1', 'CAP1_R130_C1', 'CAP1_R140_C1'];
     for (var fi = 0; fi < cap1SpecificFields.length; fi++) {
         if (values[cap1SpecificFields[fi]]) {
+           
             countCap1SpecificRows++;
         }
     }
+
+
+
+    // var countCap1SpecificRows = 0;
+    // var cap1SpecificFields = ['CAP1_R100_C1', 'CAP1_R110_C1', 'CAP1_R120_C1', 'CAP1_R130_C1', 'CAP1_R140_C1'];
+
+    // for (var fi = 0; fi < cap1SpecificFields.length; fi++) {
+    //     var fieldValue = values[cap1SpecificFields[fi]];
+
+    //     // Check if fieldValue is not "0.0" or ""
+    //     if (fieldValue !== "0.0" && fieldValue !== "") {
+    //         countCap1SpecificRows++;
+    //     }
+    // }
+
+
 
     for (var i = 0; i < values.CAP4_R_C31.length; i++) {
         if (countCap4Rows < countCap1SpecificRows) {

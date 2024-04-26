@@ -256,7 +256,7 @@ webform.validators.asa23 = function (v, allowOverpass) {
         thirdCol;
     var caem6Nr4Arr = ['3514', '3523'],
         caem6Nr3Arr = ['451', '453', '454', '462', '463', '464', '465', '466', '467', '468', '469'],
-        caem6Nr2Arr = ['47', '56']];
+        caem6Nr2Arr = ['47'];
      caem6Nr4Grupa = ['0000','0100','0110','0120','0140','0160','0200','0300','0310','0320','0500','0600','0700','0720','0800','0810','0890','0900','1000','1010','1030','1040',
 '1050','1060','1070','1080','1090','1100','1300','1390','1400','1410','1430','1500','1510','1600','1620','1700','1710','1720','1800','1810','1900','2000','2010','2040','2050',
 '2100','2200','2210','2220','2300','2310','2330','2340','2350','2360','2390','2400','2430','2440','2450','2500','2510','2520','2560','2570','2590','2600','2610','2650',
@@ -866,13 +866,32 @@ caem4_codul_r = [
         }
     }
 
+
+    //This is code in JS for Drupal
     var countCap1SpecificRows = 0;
     var cap1SpecificFields = ['CAP1_R100_C1', 'CAP1_R110_C1', 'CAP1_R120_C1', 'CAP1_R130_C1', 'CAP1_R140_C1'];
     for (var fi = 0; fi < cap1SpecificFields.length; fi++) {
         if (values[cap1SpecificFields[fi]]) {
+           
             countCap1SpecificRows++;
         }
     }
+
+
+
+    // var countCap1SpecificRows = 0;
+    // var cap1SpecificFields = ['CAP1_R100_C1', 'CAP1_R110_C1', 'CAP1_R120_C1', 'CAP1_R130_C1', 'CAP1_R140_C1'];
+
+    // for (var fi = 0; fi < cap1SpecificFields.length; fi++) {
+    //     var fieldValue = values[cap1SpecificFields[fi]];
+
+    //     // Check if fieldValue is not "0.0" or ""
+    //     if (fieldValue !== "0.0" && fieldValue !== "") {
+    //         countCap1SpecificRows++;
+    //     }
+    // }
+
+
 
     for (var i = 0; i < values.CAP4_R_C31.length; i++) {
         if (countCap4Rows < countCap1SpecificRows) {
@@ -1171,7 +1190,8 @@ caem4_codul_r = [
 
 
     
-    if (values.CAP4_R400_C4 == "") {
+    if (values.CAP4_R400_C4 == ""
+        && (values.CHESTIONAR_RA_C1 == true )) {
         webform.errors.push({
             'fieldName': 'CAP4_R400_C4',
             'msg': Drupal.t('Cod eroare: A.01, Cap.4 [r.400 c.2] >= 0')
@@ -1179,209 +1199,9 @@ caem4_codul_r = [
     }
 
     
-  //--------------------------------------------------------------------------------------------------------------------  
-    
- // -- Start    64-102
-
-    // {
-    //     function fun_row_36_001(row) {
-    //         var i;
-    //         i = row;
-    //         if (
-
-
-    //             2130 == i || 2120 == i || 2101 == i || 2103 == i || 2105 == i || 2106 == i || 2107 == i || 2108 == i
-    //             || 2109 == i
-
-               
-
-    //         )
-    //             return true;
-
-    //     }
-
-    //     // Start 64-102
-    //     for (var i = 2100; i < 2131; i++) {
-    //         {
-    //             if (fun_row_36_001((i))) {
-                     
-                    
-    //                 var col1 = 0;
-    //                 var col2 = 0;
-    //                 var col3 = 0;
-                  
-
-    //                 if (!isNaN(Number(values["CAP21_R" + i + "_3_C1"]))) {
-    //                     var col3 = Number(values["CAP21_R" + i + "_3_C1"]);
-    //                 }
-
-    //                 if (!isNaN(Number(values["CAP21_R" + i + "_2_C1"]))) {
-    //                     var col2 = Number(values["CAP21_R" + i + "_2_C1"]);
-    //                 }
-
-                  
-    //                 if (!isNaN(Number(values["CAP21_R" + i + "_1_C1"]))) {
-    //                     var col1 = Number(values["CAP21_R" + i + "_1_C1"]);
-    //                 }
-
-    //                 var SUM_COL2_COL4 = (col2 + col3).toFixed(1)
-
-    //                 if (col1 < (SUM_COL2_COL4)) {
-    //                     webform.errors.push({
-    //                         'fieldName': 'CAP21_R' + i + '_1_C1',
-    //                         'weight': 1,
-    //                         'msg': Drupal.t('Cod eroare: 64-102  CAP 2.1 col.1 ≥ col 2 + col. 3 + col.4  pe toate rindurile - @col1 <  @SUM_COL2_COL4 ', { "@col1": col1, "@SUM_COL2_COL4": SUM_COL2_COL4 })
-    //                     });
-    //                 }
-
-    //             }
-
-
-
-
-
-
-
-    //         }
-    //     }
-
-
-    // }
-
-
-
-    // {
-    //     function fun_row_36_002(row) {
-    //         var i;
-    //         i = row;
-    //         if (
-
-
-    //             2102 == i || 2104 == i || 2110 == i || 2111 == i || 2112 == i || 2113 == i || 2114 == i || 2115 == i
-    //             || 2116 == i || 2117 == i || 2118 == i || 2119 == i || 2121 == i  || 2123 == i || 2124 == i || 2125 == i || 2127 == i
-    //             || 2128 == i
-
-
-
-    //         )
-    //             return true;
-
-    //     }
-
-    //     // Start 64-102
-    // //     for (var i = 2100; i < 2131; i++) {
-    // //         {
-    // //             if (fun_row_36_002((i))) {
-
-    // //                 var col1 = 0;
-    // //                 var col2 = 0;
-    // //                 var col3 = 0;
-    // //                 var col4 = 0;
-
-    // //                 if (!isNaN(Number(values["CAP21_R" + i + "_3_C1"]))) {
-    // //                     var col3 = Number(values["CAP21_R" + i + "_3_C1"]);
-    // //                 }
-
-    // //                 if (!isNaN(Number(values["CAP21_R" + i + "_2_C1"]))) {
-    // //                     var col2 = Number(values["CAP21_R" + i + "_2_C1"]);
-    // //                 }
-
-    // //                 if (!isNaN(Number(values["CAP21_R" + i + "_4_C1"]))) {
-    // //                     var col4 = Number(values["CAP21_R" + i + "_4_C1"]);
-    // //                 }
-
-         
-
-    // //                 if (!isNaN(Number(values["CAP21_R" + i + "_1_C1"]))) {
-    // //                     var col1 = Number(values["CAP21_R" + i + "_1_C1"]);
-    // //                 }
-
-    // //                 var SUM_COL2_COL4 = (col2 + col3 + col4).toFixed(1)
-
-              
-                    
-    // //                  if (col1 < (SUM_COL2_COL4)) 
-                    
-                    
-    // //                 {
-    // //                     webform.errors.push({
-    // //                         'fieldName': 'CAP21_R' + i + '_1_C1',
-    // //                         'weight': 1,
-    // //                         'msg': Drupal.t('Cod eroare: 64-102  CAP 2.1 col.1 ≥ col 2 + col. 3 + col.4  pe toate rindurile - @col1 <  @SUM_COL2_COL4 ', { "@col1": col1, "@SUM_COL2_COL4": SUM_COL2_COL4 })
-    // //                     });
-    // //                 }
-
-    // //             }
-
-
-
-
-
-
-
-    // //         }
-    // //     }
-    // // }
-    //  //End 64-102
-
-
-
-
-    // // Start 64-101
-    // // var sumCol1 = 0;
-
-    // // for (var i = 2101; i < 2131; i++) {
-    // //     if (!isNaN(Number(values["CAP21_R" + i + "_1_C1"]))) {
-    // //         sumCol1 += Number(values["CAP21_R" + i + "_1_C1"]);
-    // //     }
-    //  }
-
-    // if (!isNaN(Number(values["CAP21_R2100_1_C1"]))) {
-    //     var col1 = Number(values["CAP21_R2100_1_C1"]);
-    // }
-
-    // if (Number(col1.toFixed(1)) !== Number(sumCol1.toFixed(1))) {
-    //     webform.errors.push({
-    //         'fieldName': 'CAP21_R2100_1_C1',
-    //         'weight': 1,
-    //         'msg': Drupal.t('Cod eroare: 64-101  CAP 2.1 rd. 2100 col.1 ≠ (rd. 2101+…+rd.2130) col.1. col1 = @col1, sumCol1 = @sumCol1', { '@col1': col1.toFixed(1), '@sumCol1': sumCol1.toFixed(1) })
-    //     });
-    // }
-// End  64-101
-
-
-  // Start 64 - 103
-    // if (!isNaN(Number(values["CAP2_R220_C1"]))) {
-    //     var col2 = Number(values["CAP2_R220_C1"]);
-    // }
-
-    // if (!isNaN(Number(values["CAP2_R240_C1"]))) {
-    //     var col4 = Number(values["CAP2_R240_C1"]);
-    // }
-
-
-
-    // if (!isNaN(Number(values["CAP21_R2100_1_C1"]))) {
-    //     var col1 = Number(values["CAP21_R2100_1_C1"]);
-    // }
-
-    // var SUM_COL2_COL4 = col2 +  col4
-    // var SUM_COL2_COL4_F = parseFloat(SUM_COL2_COL4.toFixed(1));
  
-    // if (col1 !== SUM_COL2_COL4_F) {
-        
-        
-    //     webform.errors.push({
-    //         'fieldName': 'CAP21_R2100_1_C1',
-    //         'weight': 4,
-    //         'msg': Drupal.t('Cod eroare: 64-103  CAP 2.1 2100 col.1 = CAP 2  220 + 240 - @col1 <>   @SUM_COL2_COL4_F ', { "@col1": col1, "@SUM_COL2_COL4_F": SUM_COL2_COL4_F })
-    //     });
-
-
-    // }
-
-//End 64 - 103
-
+    
+ 
 
  // Start 64 - 104
 
