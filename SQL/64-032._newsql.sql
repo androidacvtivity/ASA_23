@@ -1,0 +1,38 @@
+SELECT
+    D.RIND || '- ' ||D.COL33|| ': nu ati introdus CUATM corect' 
+   AS REZULTAT
+   
+   
+FROM
+    CIS2.VW_DATA_ALL D
+WHERE
+    (D.PERIOADA = :PERIOADA) AND
+    (D.CUIIO = :CUIIO) AND
+    (D.CUIIO_VERS = :CUIIO_VERS OR :CUIIO_VERS = -1) AND
+    (D.FORM = :FORM) AND
+    (D.FORM_VERS = :FORM_VERS) AND
+    (D.CAPITOL = :CAPITOL OR :CAPITOL = -1) AND
+    (D.CAPITOL_VERS = :CAPITOL_VERS OR :CAPITOL_VERS = -1) AND
+    (D.ID_MD = :ID_MD OR :ID_MD = -1) AND
+    D.CAPITOL IN (1128) AND 
+    D.RIND NOT IN ('500')
+GROUP BY
+    D.RIND, D.COL33
+HAVING  
+   D.COL33 not in (
+    SELECT
+        
+            TRIM(CODUL) AS COL33
+            
+            FROM CIS2.VW_CL_CUATM
+            
+            WHERE
+            
+            CODUL NOT IN ('0000000','0100000','0300000','1111111','2222222','3333333')
+    )
+    
+    
+    
+     AND
+ SUM( CASE WHEN D.CAPITOL IN(1128)  THEN  CIS2.NVAL(D.COL8)+CIS2.NVAL(D.COL9)+CIS2.NVAL(D.COL10) ELSE 0 END) >0
+    
