@@ -1,0 +1,74 @@
+SELECT 
+ CASE 
+ 
+ WHEN LENGTH(MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END)) <> 9
+ 
+ THEN 
+ 
+ ' '||MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END)  
+  
+  ||'  Numarul de telefon nu are 9 catactere'
+  
+ 
+WHEN 
+
+SUBSTR(MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END),1,1)  <> '0' 
+
+THEN 
+
+
+ 'Numarul de telefon trebuie sa inceapa cu zero'
+ 
+ 
+-----------------------------------------
+WHEN 
+
+MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END) = '000000000' 
+
+
+THEN 
+
+
+'Numarul de telefon este '||MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END) || ''
+
+----------------------------------------- 
+
+ ELSE   ' '||MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END)  
+  
+  ||'  Nu ati completat toate cimpurile corect'
+  
+  END 
+    AS REZULTAT 
+
+FROM VW_DATA_ALL D
+WHERE
+  (D.PERIOADA=:PERIOADA          ) AND
+  (D.CUIIO=:CUIIO                ) AND
+  (D.CUIIO_VERS=:CUIIO_VERS     OR :CUIIO_VERS = -1) AND
+  (D.FORM = :FORM               ) AND
+  (D.FORM_VERS=:FORM_VERS ) AND
+  (D.CAPITOL=:CAPITOL           OR :CAPITOL = -1) AND
+  (D.CAPITOL_VERS=:CAPITOL_VERS OR :CAPITOL_VERS = -1) AND
+  (D.ID_MD=:ID_MD               OR :ID_MD = -1)
+  
+  
+  AND D.FORM = 64
+  AND D.CAPITOL = 1129
+  --60606685
+  HAVING 
+  
+   (LENGTH(MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END)) <> 9  
+   OR
+   LENGTH(MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END)) IS NULL) 
+   
+   OR 
+   SUBSTR(MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END),1,1)  <> '0' 
+   
+   OR 
+    
+   MAX(CASE WHEN D.CAPITOL IN (1129) AND D.RIND IN('3') THEN D.COL31 ELSE NULL END) = '000000000'
+     
+   
+   
+   
+   
