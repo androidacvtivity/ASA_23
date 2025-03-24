@@ -23,8 +23,8 @@ FROM CIS2.MD_RIND D
 WHERE
 D.STATUT = '1'  AND  
 ---- 
-D.capitol= 340 AND D.capitol_vers=2004
-and d.rind not in ('--')
+D.capitol= 1127 AND D.capitol_vers=2010
+and d.rind not in ('-','400')
   GROUP BY
   D.ID_MD,
   D.FORM,         
@@ -40,9 +40,9 @@ and d.rind not in ('--')
 WHERE
 D.STATUT = '1'  AND  
 ---- 
-D.capitol= 340 AND D.capitol_vers = 2004
+D.capitol= 1127 AND D.capitol_vers = 2010
 
-AND D.RIND NOT IN ('-')
+AND D.RIND NOT IN ('-','400')
 
   GROUP BY
    D.ID_MD,
