@@ -12,3 +12,9 @@ SELECT
                 SUBSTR(CODUL,2,2)  IN ('47','45')
                 
                 )
+                
+                GROUP BY
+                SUBSTR(CODUL,2,4), 
+                ROWNUM
+                HAVING 
+                ROWNUM <=30
